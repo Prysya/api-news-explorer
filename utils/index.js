@@ -8,6 +8,6 @@ module.exports = {
   dbOptions,
   messages,
   port,
-  createToken,
   verifyToken,
+  createToken,
 };
