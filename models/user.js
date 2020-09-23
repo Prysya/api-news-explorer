@@ -3,7 +3,7 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const uniqueValidator = require('mongoose-unique-validator');
 const { UnauthorizedError } = require('../errors/index');
-const messages = require('../utils/messages');
+const { messages } = require('../utils');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: [true, 'Длинна пароля должна быть не менее 8 символов'],
+    required: [true, messages.user.passwordTooShort],
     minlength: 8,
     select: false,
   },
