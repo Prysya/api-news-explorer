@@ -18,6 +18,7 @@ const messages = {
     passwordIsNotValid:
       'Длинна пароля менее 8 символов, либо пароль не валиден',
     idIsNotFound: 'Нет пользователя с таким id',
+    passwordTooShort: 'Длинна пароля должна быть не менее 8 символов',
   },
   validation: {
     urlIsNotValid: 'URL невалиден',
@@ -27,7 +28,8 @@ const messages = {
     isEmpty: 'Поле не может быть пустым',
     wrongUrl: 'Неправильный формат ссылки',
     emailIsNotValid: 'Email невалиден',
+    isRequired: 'Поле обязательно для заполнения',
   },
 };
 
-module.exports = messages;
+module.exports = { messages };
