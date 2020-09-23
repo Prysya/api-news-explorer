@@ -1,6 +1,6 @@
 const { Joi } = require('celebrate');
 const validator = require('validator');
-const messages = require('../utils/messages');
+const { messages } = require('../utils');
 
 const checkUrl = (value) => {
   if (!validator.isURL(value)) {
@@ -12,4 +12,7 @@ const checkUrl = (value) => {
 module.exports.linkSchema = Joi.string()
   .custom(checkUrl, 'Валидация URL')
   .required()
-  .uri();
+  .uri()
+  .messages({
+    'any.required': messages.schemas.isRequired,
+  });
