@@ -1,46 +1,32 @@
 const router = require('express').Router();
 const { celebrate } = require('celebrate');
+
 const {
-  getCards,
-  createCard,
-  deleteCard,
-  likeCard,
-  dislikeCard,
-} = require('../controllers/cards');
-const { cardSchema, objectIdSchema } = require('../joi-schemas/index');
-const { verifyCardId } = require('../middlewares/object-id');
+  deleteUserArticle,
+  getUserArticles,
+  createArticle,
+} = require('../controllers/articles');
+const { articleSchema, objectIdSchema } = require('../joi-schemas/index');
+const { verifyArticleId } = require('../middlewares/object-id');
 const auth = require('../middlewares/auth');
 
 router.use(auth);
 
-router.get('/', getCards);
+router.get('/', getUserArticles);
 
 router.post(
   '/',
   celebrate({
-    body: cardSchema,
+    body: articleSchema,
   }),
-  createCard,
+  createArticle,
 );
 
 router.delete(
-  '/:id',
+  '/:articleId',
   celebrate({ params: objectIdSchema }),
-  verifyCardId,
-  deleteCard,
-);
-
-router.put(
-  '/:id/likes',
-  celebrate({ params: objectIdSchema }),
-  verifyCardId,
-  likeCard,
-);
-router.delete(
-  '/:id/likes',
-  celebrate({ params: objectIdSchema }),
-  verifyCardId,
-  dislikeCard,
+  verifyArticleId,
+  deleteUserArticle,
 );
 
 module.exports = router;
