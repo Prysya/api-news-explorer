@@ -8,37 +8,15 @@ const messages = require('../utils/messages');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Длинна поля "Имя" должна быть от 2 до 30 символов'],
+    required: [true, 'Длинна поля имени должна быть от 2 до 30 символов'],
     minlength: 2,
     maxlength: 30,
     validate: {
       validator(name) {
         return !validator.isEmpty(name, { ignore_whitespace: true });
       },
-      message: 'Длинна поля "Имя" должна быть от 2 до 30 символов',
+      message: messages.schemas.isEmpty,
     },
-  },
-  about: {
-    type: String,
-    required: [true, 'Длинна поля "О себе" должна быть от 2 до 30 символов'],
-    minlength: 2,
-    maxlength: 30,
-    validate: {
-      validator(about) {
-        return !validator.isEmpty(about, { ignore_whitespace: true });
-      },
-      message: 'Длинна поля "О себе" должна быть от 2 до 30 символов',
-    },
-  },
-  avatar: {
-    type: String,
-    validate: {
-      validator(link) {
-        return validator.isURL(link);
-      },
-      message: 'Ссылка невалидна',
-    },
-    required: true,
   },
   email: {
     type: String,
@@ -46,7 +24,7 @@ const userSchema = new mongoose.Schema({
       validator(email) {
         return validator.isEmail(email);
       },
-      message: 'Почта невалидна',
+      message: messages.schemas.emailIsNotValid,
     },
     required: [true, 'Необходимо указать email'],
     unique: true,
@@ -59,8 +37,7 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-// eslint-disable-next-line func-names
-userSchema.statics.findUserByCredentials = function (email, password) {
+userSchema.statics.findUserByCredentials = function findUserByCredentials(email, password) {
   return this.findOne({ email })
     .select('+password')
     .then((user) => {
