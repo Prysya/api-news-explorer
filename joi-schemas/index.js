@@ -7,9 +7,7 @@ const { textSchema } = require('./text-schema');
 
 const registrationSchema = Joi.object().keys({
   name: textSchema,
-  about: textSchema,
   email: emailSchema,
-  avatar: linkSchema,
   password: passwordSchema,
 });
 
@@ -19,28 +17,22 @@ const loginSchema = Joi.object().keys({
 });
 
 const objectIdSchema = Joi.object().keys({
-  id: objectId,
+  articleId: objectId,
 });
 
-const userAvatarSchema = Joi.object().keys({
-  avatar: linkSchema,
-});
-
-const userInfoSchema = Joi.object().keys({
-  name: textSchema,
-  about: textSchema,
-});
-
-const cardSchema = Joi.object().keys({
-  name: textSchema,
+const articleSchema = Joi.object().keys({
+  keyword: textSchema,
+  title: textSchema,
+  text: textSchema,
+  date: textSchema,
+  source: textSchema,
   link: linkSchema,
+  image: linkSchema,
 });
 
 module.exports = {
   registrationSchema,
   loginSchema,
   objectIdSchema,
-  userAvatarSchema,
-  userInfoSchema,
-  cardSchema,
+  articleSchema,
 };
