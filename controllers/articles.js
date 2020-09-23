@@ -1,84 +1,59 @@
 const escape = require('escape-html');
-const Card = require('../models/card');
+const Article = require('../models/article');
 const {
   BadRequestError,
   NotFoundError,
   UnauthorizedError,
 } = require('../errors/index');
-const messages = require('../utils/messages');
+const { messages } = require('../utils');
 
-const checkCardAndSend = (card, res) => {
-  if (!card) {
-    throw new NotFoundError(messages.card.idIsNotFound);
-  }
-
-  return res.send({ data: card });
-};
-
-module.exports.getCards = async (req, res, next) => {
+module.exports.getUserArticles = async (req, res, next) => {
   try {
-    const cards = await Card.find({}).populate('owner');
-    res.send(cards);
+    const articles = await Article.find({ owner: req.user._id });
+    res.send(articles);
   } catch (err) {
     next(err);
   }
 };
 
-module.exports.createCard = async (req, res, next) => {
+module.exports.createArticle = async (req, res, next) => {
   try {
-    const { name, link } = req.body;
+    const {
+      keyword, title, text, date, source, link, image,
+    } = req.body;
 
-    const card = await Card.create({ name: escape(name), link, owner: req.user._id });
-    res.status(201).send({ data: card });
+    await Article.create({
+      keyword: escape(keyword),
+      title: escape(title),
+      text: escape(text),
+      date: escape(date),
+      source: escape(source),
+      link,
+      image,
+      owner: req.user._id,
+    });
+    await res.status(201).send({ message: messages.article.isCreated });
   } catch (err) {
     if (err.name === 'ValidationError') {
-      next(new BadRequestError(messages.card.isNotValid));
+      next(new BadRequestError(messages.article.isNotValid));
     }
 
     next(err);
   }
 };
 
-module.exports.deleteCard = async (req, res, next) => {
+module.exports.deleteUserArticle = async (req, res, next) => {
   try {
-    const card = await Card.findById(req.params.id).orFail(
-      () => new NotFoundError(messages.card.idIsNotFound),
-    );
+    const article = await Article.findById(req.params.articleId)
+      .orFail(() => new NotFoundError(messages.article.idIsNotFound))
+      .select('+owner');
 
-    if (card.owner._id.toString() !== req.user._id) {
+    if (String(article.owner._id) !== req.user._id) {
       throw new UnauthorizedError(messages.auth.notAuthorised);
     }
 
-    await Card.deleteOne(card);
-    res.send({ message: messages.card.isDeleted });
-  } catch (err) {
-    next(err);
-  }
-};
-
-module.exports.likeCard = async (req, res, next) => {
-  try {
-    const card = await Card.findByIdAndUpdate(
-      req.params.id,
-      { $addToSet: { likes: req.user._id } },
-      { new: true },
-    );
-
-    checkCardAndSend(card, res);
-  } catch (err) {
-    next(err);
-  }
-};
-
-module.exports.dislikeCard = async (req, res, next) => {
-  try {
-    const card = await Card.findByIdAndUpdate(
-      req.params.id,
-      { $pull: { likes: req.user._id } },
-      { new: true },
-    );
-
-    checkCardAndSend(card, res);
+    await Article.deleteOne(article);
+    res.send({ message: messages.article.isDeleted });
   } catch (err) {
     next(err);
   }
