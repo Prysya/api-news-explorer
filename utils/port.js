@@ -1,3 +1,3 @@
-const { NODE_ENV, PORT } = process.env;
+const { PORT } = process.env;
 
-module.exports.port = NODE_ENV === 'production' ? PORT : 3000;
+module.exports.port = PORT || 3000;
