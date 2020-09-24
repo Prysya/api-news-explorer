@@ -15,7 +15,9 @@
 К api можно обратиться по адресам:
 
 > `www.api.prysya-news-explorer.tk`
+>
 > `api.prysya-news-explorer.tk`
+>
 > `84.201.147.94`
 
 ## Установка
