@@ -3,7 +3,7 @@ const Article = require('../models/article');
 const {
   BadRequestError,
   NotFoundError,
-  UnauthorizedError,
+  ForbiddenError,
 } = require('../errors/index');
 const { messages } = require('../utils');
 
@@ -49,7 +49,7 @@ module.exports.deleteUserArticle = async (req, res, next) => {
       .select('+owner');
 
     if (String(article.owner._id) !== req.user._id) {
-      throw new UnauthorizedError(messages.auth.notAuthorised);
+      throw new ForbiddenError(messages.auth.notAuthorised);
     }
 
     await Article.deleteOne(article);
