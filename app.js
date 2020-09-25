@@ -26,4 +26,4 @@ router.use(errors());
 
 router.use(errorsHandler);
 
-app.listen(port, () => console.log(`Слушаю порт ${port}`));
+app.listen(port);
