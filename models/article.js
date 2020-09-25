@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const { messages } = require('../utils');
 
-const cardSchema = new mongoose.Schema({
+const articleSchema = new mongoose.Schema({
   keyword: {
     type: String,
     required: [true, 'Длинна ключевого слова должна быть от 2 до 30 символов'],
@@ -79,4 +79,4 @@ const cardSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('card', cardSchema);
+module.exports = mongoose.model('articles', articleSchema);
