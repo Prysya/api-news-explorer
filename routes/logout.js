@@ -4,4 +4,4 @@ const { logout } = require('../controllers/users');
 
 router.post('/', logout);
 
-router.exports = router;
+module.exports = router;
