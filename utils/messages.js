@@ -3,6 +3,7 @@ const messages = {
     authIsSuccess: 'Авторизация прошла успешно',
     notAuthorised: 'Необходима авторизация',
     wrongEmailOrPassword: 'Неправильная почта или пароль',
+    logout: 'Вы успешно вышли с учетной записи',
   },
   article: {
     isNotValid: 'Ошибка валидации данных статьи',
