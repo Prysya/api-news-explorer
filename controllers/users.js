@@ -9,7 +9,9 @@ module.exports.getUserInfo = async (req, res, next) => {
     const user = await User.findById(req.user._id).orFail(
       () => new NotFoundError(messages.user.idIsNotFound),
     );
-    res.send({ data: { name: user.name, email: user.email } });
+    res
+      .status(200)
+      .send({ status: '200', data: { name: user.name, email: user.email } });
   } catch (err) {
     next(err);
   }
@@ -26,7 +28,8 @@ module.exports.createUser = async (req, res, next) => {
       password: hash,
     });
 
-    res.send({
+    res.status(201).send({
+      status: '201',
       data: {
         name: user.name,
         email: user.email,
@@ -50,7 +53,9 @@ module.exports.login = async (req, res, next) => {
       httpOnly: true,
     });
 
-    await res.status(200).send({ message: messages.auth.authIsSuccess });
+    await res
+      .status(200)
+      .send({ status: '200', message: messages.auth.authIsSuccess });
   } catch (err) {
     next(err);
   }
@@ -62,7 +67,9 @@ module.exports.logout = async (req, res, next) => {
       httpOnly: true,
     });
 
-    await res.status(200).send({ message: messages.auth.logout });
+    await res
+      .status(200)
+      .send({ status: '200', message: messages.auth.logout });
   } catch (err) {
     next(err);
   }
