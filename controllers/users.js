@@ -55,3 +55,15 @@ module.exports.login = async (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.logout = async (req, res, next) => {
+  try {
+    await res.clearCookie('jwt', {
+      httpOnly: true,
+    });
+
+    await res.status(200).send({ status: '200', message: messages.auth.logout });
+  } catch (err) {
+    next(err);
+  }
+};
