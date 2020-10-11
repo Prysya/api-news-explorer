@@ -62,7 +62,7 @@ module.exports.logout = async (req, res, next) => {
       httpOnly: true,
     });
 
-    await res.status(200).send({ status: '200', message: messages.auth.logout });
+    await res.status(200).send({ message: messages.auth.logout });
   } catch (err) {
     next(err);
   }
