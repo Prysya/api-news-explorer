@@ -10,7 +10,7 @@ const { messages } = require('../utils');
 module.exports.getUserArticles = async (req, res, next) => {
   try {
     const articles = await Article.find({ owner: req.user._id });
-    res.send(articles);
+    res.status(200).send({ status: '200', data: articles });
   } catch (err) {
     next(err);
   }
@@ -32,7 +32,7 @@ module.exports.createArticle = async (req, res, next) => {
       image,
       owner: req.user._id,
     });
-    await res.status(201).send({ message: messages.article.isCreated });
+    await res.status(201).send({ status: '201', message: messages.article.isCreated });
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequestError(messages.article.isNotValid));
@@ -53,7 +53,7 @@ module.exports.deleteUserArticle = async (req, res, next) => {
     }
 
     await Article.deleteOne(article);
-    res.send({ message: messages.article.isDeleted });
+    res.status(200).send({ status: '200', message: messages.article.isDeleted });
   } catch (err) {
     next(err);
   }
