@@ -2,7 +2,7 @@
     <img src="https://res.cloudinary.com/prysya/image/upload/v1600976364/news-explorer-logo_mxqu1g.png" width="1060">
 </p>
 <p align="center">
-    <img alt="Version 0.0.2" src="https://img.shields.io/badge/Version-0.0.2-blue.svg" />
+    <img alt="Version" src="https://img.shields.io/github/package-json/v/prysya/api-news-explorer" />
     <img alt="Made by: Prysya" src="https://img.shields.io/badge/Made%20by-Prysya-blueviolet" />
     <img alt="Stars *" src="https://img.shields.io/github/stars/prysya/api-news-explorer" />
     <img alt="Beta Quality" src="https://img.shields.io/badge/Status-Beta-orange.svg" >
