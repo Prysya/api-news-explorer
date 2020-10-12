@@ -9,7 +9,7 @@ const messages = {
     isNotValid: 'Ошибка валидации данных статьи',
     isDeleted: 'Статья удалена',
     idIsNotFound: 'Нет статьи с таким id',
-    idIsNotValid: 'id статьи невалиден',
+    idIsNotValid: 'Данный id статьи невалиден',
     isCreated: 'Статья успешно добавлена',
   },
   registration: {
@@ -22,13 +22,13 @@ const messages = {
     passwordTooShort: 'Длинна пароля должна быть не менее 8 символов',
   },
   validation: {
-    urlIsNotValid: 'URL невалиден',
+    urlIsNotValid: 'Невалидный URL',
     notFound: 'Запрашиваемый ресурс не найден',
   },
   schemas: {
     isEmpty: 'Поле не может быть пустым',
     wrongUrl: 'Неправильный формат ссылки',
-    emailIsNotValid: 'Email невалиден',
+    emailIsNotValid: 'Невалидный email',
     isRequired: 'Поле обязательно для заполнения',
   },
 };
