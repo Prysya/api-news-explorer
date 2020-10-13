@@ -51,6 +51,8 @@ module.exports.login = async (req, res, next) => {
     await res.cookie('jwt', token, {
       maxAge: 3600000 * 24 * 7,
       httpOnly: true,
+      secure: true,
+      sameSite: 'none',
     });
 
     await res
