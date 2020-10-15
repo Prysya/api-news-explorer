@@ -42,6 +42,8 @@ module.exports.createUser = async (req, res, next) => {
 
 module.exports.login = async (req, res, next) => {
   try {
+    const userAgent = req.headers['user-agent'];
+
     const { email, password } = req.body;
 
     const user = await User.findUserByCredentials(email, password);
@@ -55,7 +57,13 @@ module.exports.login = async (req, res, next) => {
       sameSite: 'none',
     });
 
-    await res
+    if (userAgent.includes('Safari')) {
+      return await res
+        .status(200)
+        .send({ status: '200', message: messages.auth.authIsSuccess, token });
+    }
+
+    return await res
       .status(200)
       .send({ status: '200', message: messages.auth.authIsSuccess });
   } catch (err) {
