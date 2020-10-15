@@ -57,15 +57,19 @@ module.exports.login = async (req, res, next) => {
       sameSite: 'none',
     });
 
+    let answer;
+
     if (userAgent.includes('Safari')) {
-      return await res
+      answer = await res
         .status(200)
         .send({ status: '200', message: messages.auth.authIsSuccess, token });
+    } else {
+      answer = await res
+        .status(200)
+        .send({ status: '200', message: messages.auth.authIsSuccess });
     }
 
-    return await res
-      .status(200)
-      .send({ status: '200', message: messages.auth.authIsSuccess });
+    await answer;
   } catch (err) {
     next(err);
   }
