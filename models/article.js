@@ -17,9 +17,9 @@ const articleSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: [true, 'Длинна заголовка должна быть от 2 до 30 символов'],
+    required: [true, 'Длинна заголовка должна быть от 2 до 50 символов'],
     minlength: 2,
-    maxlength: 30,
+    maxlength: 50,
     validate: {
       validator(text) {
         return !validator.isEmpty(text, { ignore_whitespace: true });
@@ -31,7 +31,6 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Длинна статьи должна быть от 2 символов'],
     minlength: 2,
-    maxlength: 30,
     validate: {
       validator(text) {
         return !validator.isEmpty(text, { ignore_whitespace: true });
@@ -41,9 +40,9 @@ const articleSchema = new mongoose.Schema({
   },
   date: {
     type: String,
-    required: [true, 'Длинна даты должна быть от 2 до 10 символов'],
+    required: [true, 'Длинна даты должна быть от 2 до 30 символов'],
     minlength: 2,
-    maxlength: 10,
+    maxlength: 30,
     validate: {
       validator(text) {
         return !validator.isEmpty(text, { ignore_whitespace: true });
@@ -53,7 +52,7 @@ const articleSchema = new mongoose.Schema({
   },
   source: {
     type: String,
-    required: [true, 'Длинна ресурса должна быть от 2 до 15 символов'],
+    required: [true, 'Длинна ресурса должна быть от 2 до 30 символов'],
     minlength: 2,
     maxlength: 30,
     validate: {
