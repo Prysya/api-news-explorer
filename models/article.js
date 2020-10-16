@@ -55,7 +55,7 @@ const articleSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Длинна ресурса должна быть от 2 до 15 символов'],
     minlength: 2,
-    maxlength: 15,
+    maxlength: 30,
     validate: {
       validator(text) {
         return !validator.isEmpty(text, { ignore_whitespace: true });
