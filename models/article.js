@@ -41,9 +41,21 @@ const articleSchema = new mongoose.Schema({
   },
   date: {
     type: String,
-    required: [true, 'Длинна даты должна быть от 2 символов'],
+    required: [true, 'Длинна даты должна быть от 2 до 10 символов'],
     minlength: 2,
-    maxlength: 30,
+    maxlength: 10,
+    validate: {
+      validator(text) {
+        return !validator.isEmpty(text, { ignore_whitespace: true });
+      },
+      message: messages.schemas.isEmpty,
+    },
+  },
+  source: {
+    type: String,
+    required: [true, 'Длинна ресурса должна быть от 2 до 15 символов'],
+    minlength: 2,
+    maxlength: 15,
     validate: {
       validator(text) {
         return !validator.isEmpty(text, { ignore_whitespace: true });
