@@ -10,7 +10,10 @@ const { messages } = require('../utils');
 module.exports.getUserArticles = async (req, res, next) => {
   try {
     const articles = await Article.find({ owner: req.user._id });
-    res.status(200).send({ status: '200', data: articles });
+
+    res
+      .status(200)
+      .send({ status: '200', data: articles, totalResults: articles.length });
   } catch (err) {
     next(err);
   }
