@@ -48,13 +48,6 @@ module.exports.login = async (req, res, next) => {
 
     const token = await createToken(user);
 
-    await res.cookie('jwt', token, {
-      maxAge: 3600000 * 24 * 7,
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-    });
-
     await res
       .status(200)
       .send({ status: '200', message: messages.auth.authIsSuccess, token });
