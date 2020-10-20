@@ -1,6 +1,6 @@
 {
   "name": "api-news-explorer",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Бэкенд для проекта news explorer",
   "main": "app.js",
   "scripts": {
