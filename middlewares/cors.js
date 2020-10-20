@@ -2,7 +2,7 @@ const router = require('express').Router();
 const cors = require('cors');
 
 const corsOptions = {
-  origin: ['https://prysya.gihub.io', 'http://localhost:8080'],
+  origin: ['https://prysya.github.io', 'http://localhost:8080'],
   optionsSuccessStatus: 200,
   credentials: true,
 };

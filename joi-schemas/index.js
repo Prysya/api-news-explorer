@@ -6,7 +6,7 @@ const { passwordSchema } = require('./password-schema');
 const { textSchema } = require('./text-schema');
 
 const registrationSchema = Joi.object().keys({
-  name: textSchema,
+  name: textSchema.max(30),
   email: emailSchema,
   password: passwordSchema,
 });
@@ -21,11 +21,11 @@ const objectIdSchema = Joi.object().keys({
 });
 
 const articleSchema = Joi.object().keys({
-  keyword: textSchema,
-  title: textSchema,
+  keyword: textSchema.max(30),
+  title: textSchema.max(50),
   text: textSchema,
-  date: textSchema,
-  source: textSchema,
+  date: textSchema.max(30),
+  source: textSchema.max(30),
   link: linkSchema,
   image: linkSchema,
 });

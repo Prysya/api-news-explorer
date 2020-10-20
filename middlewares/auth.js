@@ -1,13 +1,15 @@
-const { verifyToken } = require('../utils/token');
-const { UnauthorizedError } = require('../errors/index');
-const { messages } = require('../utils/messages');
+const { verifyToken } = require("../utils/token");
+const { UnauthorizedError } = require("../errors/index");
+const { messages } = require("../utils/messages");
 
 module.exports = (req, res, next) => {
-  const token = req.cookies.jwt;
+  const { authorization } = req.headers;
 
-  if (!token) {
+  if (!authorization || !authorization.startsWith("Bearer ")) {
     throw new UnauthorizedError(messages.auth.notAuthorised);
   }
+
+  const token = authorization.replace("Bearer ", "");
 
   let payload;
 

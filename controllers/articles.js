@@ -10,7 +10,10 @@ const { messages } = require('../utils');
 module.exports.getUserArticles = async (req, res, next) => {
   try {
     const articles = await Article.find({ owner: req.user._id });
-    res.status(200).send({ status: '200', data: articles });
+
+    res
+      .status(200)
+      .send({ status: '200', data: articles, totalResults: articles.length });
   } catch (err) {
     next(err);
   }
@@ -22,7 +25,7 @@ module.exports.createArticle = async (req, res, next) => {
       keyword, title, text, date, source, link, image,
     } = req.body;
 
-    await Article.create({
+    const article = await Article.create({
       keyword: escape(keyword),
       title: escape(title),
       text: escape(text),
@@ -32,7 +35,20 @@ module.exports.createArticle = async (req, res, next) => {
       image,
       owner: req.user._id,
     });
-    await res.status(201).send({ status: '201', message: messages.article.isCreated });
+    await res.status(201).send({
+      status: '201',
+      message: messages.article.isCreated,
+      data: {
+        id: article._id,
+        keyword: article.keyword,
+        title: article.title,
+        text: article.text,
+        date: article.date,
+        source: article.source,
+        link: article.link,
+        image: article.image,
+      },
+    });
   } catch (err) {
     if (err.name === 'ValidationError') {
       next(new BadRequestError(messages.article.isNotValid));
@@ -53,7 +69,9 @@ module.exports.deleteUserArticle = async (req, res, next) => {
     }
 
     await Article.deleteOne(article);
-    res.status(200).send({ status: '200', message: messages.article.isDeleted });
+    res
+      .status(200)
+      .send({ status: '200', message: messages.article.isDeleted });
   } catch (err) {
     next(err);
   }
