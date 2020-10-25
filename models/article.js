@@ -17,9 +17,8 @@ const articleSchema = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: [true, 'Длинна заголовка должна быть от 2 до 50 символов'],
+    required: [true, 'Длинна заголовка должна быть от 2 символов'],
     minlength: 2,
-    maxlength: 50,
     validate: {
       validator(text) {
         return !validator.isEmpty(text, { ignore_whitespace: true });

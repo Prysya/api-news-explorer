@@ -22,7 +22,7 @@ const objectIdSchema = Joi.object().keys({
 
 const articleSchema = Joi.object().keys({
   keyword: textSchema.max(30),
-  title: textSchema.max(50),
+  title: textSchema,
   text: textSchema,
   date: textSchema.max(30),
   source: textSchema.max(30),
